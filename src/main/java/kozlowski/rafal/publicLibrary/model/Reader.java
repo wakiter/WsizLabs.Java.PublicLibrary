@@ -16,7 +16,7 @@ public class Reader {
     private String firstname;
     private String lastname;
 
-    @OneToMany(mappedBy = "reader")
+    @OneToMany(mappedBy = "reader", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<BorrowedBook> books = new HashSet<BorrowedBook>();
 
     public Reader(String firstname, String lastname) {
@@ -41,6 +41,14 @@ public class Reader {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Reader addBook(Book book) {

@@ -23,7 +23,7 @@ public class BootStrapData implements CommandLineRunner {
         Book theExpanse1 = new Book("The expanse book 1", "123123123");
 
         wakiter.addBook(theExpanse1);
-        theExpanse1.borrow(wakiter);
+        //theExpanse1.borrow(wakiter);
         
         this.readerRepository.save(wakiter);
         this.bookRepository.save(theExpanse1);

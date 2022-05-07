@@ -21,8 +21,10 @@ public class BootStrapData implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Reader wakiter = new Reader("wakiter", "varez");
         Book theExpanse1 = new Book("The expanse book 1", "123123123");
+        Book theExpanse2 = new Book("The expanse book 2", "321321321");
 
         wakiter.addBook(theExpanse1);
+        wakiter.addBook(theExpanse2);
         //theExpanse1.borrow(wakiter);
         
         this.readerRepository.save(wakiter);

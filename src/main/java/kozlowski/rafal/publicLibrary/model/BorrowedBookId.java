@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class BorrowedBookId implements Serializable {
+public final class BorrowedBookId implements Serializable {
     @Column(name = "reader_id")
     private Long readerId;
 

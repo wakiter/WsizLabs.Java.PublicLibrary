@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @javax.persistence.Entity
-public class Book {
+public final class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

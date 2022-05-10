@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @javax.persistence.Entity
-public class Reader {
+public final class Reader {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

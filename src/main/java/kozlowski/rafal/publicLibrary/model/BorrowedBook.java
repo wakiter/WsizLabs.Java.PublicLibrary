@@ -5,7 +5,7 @@ import org.hibernate.annotations.Entity;
 import javax.persistence.*;
 
 @javax.persistence.Entity
-public class BorrowedBook {
+public final class BorrowedBook {
 
     @EmbeddedId
     private BorrowedBookId id = new BorrowedBookId();

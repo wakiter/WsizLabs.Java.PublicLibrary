@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @javax.persistence.Entity
-public class Book {
+public final class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,6 +48,14 @@ public class Book {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<BorrowedBook> getBorrows() {
+        return borrows;
+    }
+
+    public void setBorrows(Set<BorrowedBook> borrows) {
+        this.borrows = borrows;
     }
 
     public Book borrow(Reader reader) {

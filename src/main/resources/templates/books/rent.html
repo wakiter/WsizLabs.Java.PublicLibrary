@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Książki</title>
+    <link th:rel="stylesheet" th:href="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{/assets/bootstrap/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css} "/>
+</head>
+<body>
+<h1>Wypożycz książkę</h1>
+
+<form th:action="@{/rentABook/__${selectedBookId}__}" method="post" th:object="${borrowBook}">
+    <table>
+        <tbody>
+            <tr>
+                <td>Data wypożyczenia:</td>
+                <td>
+                    <div class="form-group">
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"
+                                   th:field="${borrowBook.borrowDate}" id="date" />
+                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Książka:</td>
+                <td>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select id="book" disabled class="form-control" th:field="${borrowBook.bookId}">
+                                <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.name}" th:selected="${book.id == selectedBookId}" />
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Czytelnik:</td>
+                <td>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select id="reader" class="form-control" th:field="${borrowBook.readerId}">
+                                <option value="-1"></option>
+                                <option th:each="reader : ${readers}" th:value="${reader.id}" th:text="|${reader.lastname} ${reader.firstname}|" />
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="action" value="submit">Wypożycz!</button>
+                            <button type="submit" class="btn btn-danger float-right" name="action" value="cancel">Anuluj</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/assets/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/assets/moment/moment.min.js}"></script>
+<script th:src="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js}"></script>
+
+<script>
+    $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar',
+            up: 'fas fa-arrow-up',
+            down: 'fas fa-arrow-down',
+            previous: 'fas fa-chevron-left',
+            next: 'fas fa-chevron-right',
+            today: 'far fa-calendar-check-o',
+            clear: 'far fa-trash',
+            close: 'far fa-times'
+        } });
+
+    $('#datetimepicker1').datetimepicker({
+        format: 'DD-MM-YYYY HH:mm',
+        maxDate: 'now'
+    });
+</script>
+
+</body>
+</html>

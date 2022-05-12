@@ -3,6 +3,7 @@ package kozlowski.rafal.publicLibrary.model;
 import org.hibernate.annotations.Entity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,8 +59,8 @@ public final class Book {
         this.borrows = borrows;
     }
 
-    public Book borrow(Reader reader) {
-        this.borrows.add(new BorrowedBook(reader, this));
+    public Book borrow(Reader reader, Date borrowDate) {
+        this.borrows.add(new BorrowedBook(reader, this, borrowDate));
 
         return this;
     }

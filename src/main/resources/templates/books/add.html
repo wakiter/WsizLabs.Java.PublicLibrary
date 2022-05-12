@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Nowa książka</title>
+    <link th:rel="stylesheet" th:href="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{/assets/bootstrap/bootstrap.min.css} "/>
+</head>
+<body>
+<h1>Nowa książka</h1>
+
+<form method="post" th:object="${addBook}" th:action="@{/addBook}">
+    <table>
+        <tbody>
+            <tr>
+                <td>Nazwa:</td>
+                <td>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" th:field="${addBook.name}" />
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Uniwersalny numer identyfikacyjny:</td>
+                <td>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" th:field="${addBook.universalIdentificationNumber}" />
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" name="action" value="submit">Dodaj!</button>
+                        <button type="submit" class="btn btn-danger float-right" name="action" value="cancel">Anuluj</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+
+</body>
+</html>

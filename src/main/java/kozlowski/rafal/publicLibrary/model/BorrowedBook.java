@@ -3,6 +3,7 @@ package kozlowski.rafal.publicLibrary.model;
 import org.hibernate.annotations.Entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @javax.persistence.Entity
 public final class BorrowedBook {
@@ -18,9 +19,14 @@ public final class BorrowedBook {
     @MapsId("bookId")
     private Book book;
 
-    public BorrowedBook(Reader reader, Book book) {
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date borrowTimestamp;
+
+    public BorrowedBook(Reader reader, Book book, Date borrowTimestamp) {
         this.reader = reader;
         this.book = book;
+        this.borrowTimestamp = borrowTimestamp;
     }
 
     public BorrowedBook() {
@@ -49,4 +55,8 @@ public final class BorrowedBook {
     public void setId(BorrowedBookId id) {
         this.id = id;
     }
+
+    public Date getBorrowTimestamp() { return borrowTimestamp; }
+
+    public void setBorrowTimestamp(Date borrowTimestamp) { this.borrowTimestamp = borrowTimestamp; }
 }

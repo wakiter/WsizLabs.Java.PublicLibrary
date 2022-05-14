@@ -10,7 +10,7 @@
 <body>
 <h1>Wypożycz książkę</h1>
 
-<form th:action="@{/rentABook/__${selectedBookId}__}" method="post" th:object="${borrowBook}">
+<form th:action="@{/book/rent/__${selectedBookId}__}" method="post" th:object="${borrowBook}">
     <table>
         <tbody>
             <tr>

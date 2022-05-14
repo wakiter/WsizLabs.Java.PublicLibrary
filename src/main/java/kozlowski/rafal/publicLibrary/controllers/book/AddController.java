@@ -2,7 +2,7 @@ package kozlowski.rafal.publicLibrary.controllers.book;
 
 import kozlowski.rafal.publicLibrary.model.Book;
 import kozlowski.rafal.publicLibrary.repositories.BookRepository;
-import kozlowski.rafal.publicLibrary.viewModels.AddBookViewModel;
+import kozlowski.rafal.publicLibrary.viewModels.book.AddBookViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -26,11 +26,13 @@ public final class AddController {
     @ModelAttribute("addBook")
     public AddBookViewModel addBookViewModel() { return new AddBookViewModel(); }
 
-
     @RequestMapping(value = AddBookUrl, method = RequestMethod.GET)
     public String addBook(
             @ModelAttribute("addBook") AddBookViewModel viewModel,
             ModelMap modelMap) {
+
+        viewModel.setSubmitFormUrl(AddBookUrl);
+
         modelMap.put(BindingResult.MODEL_KEY_PREFIX + "addBook", modelMap.get("errors"));
         return "books/add";
     }

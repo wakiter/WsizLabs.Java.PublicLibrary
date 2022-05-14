@@ -21,6 +21,7 @@ public final class RentController {
     private final ReaderRepository readerRepository;
 
     public static final String RentABookUrl = "/book/rent/";
+    
     public RentController(BookRepository bookRepository, ReaderRepository readerRepository) {
         this.bookRepository = bookRepository;
         this.readerRepository = readerRepository;

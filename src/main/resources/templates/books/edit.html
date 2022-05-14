@@ -7,9 +7,10 @@
     <link th:rel="stylesheet" th:href="@{/assets/bootstrap/bootstrap.min.css} "/>
 </head>
 <body>
-<h1>Nowa książka</h1>
+<h1>Edycja książki</h1>
 
-<form method="post" th:object="${addBook}" th:action="@{__${addBook.submitFormUrl}__}">
+<form method="post" th:object="${editBook}" th:action="@{__${editBook.submitFormUrl}__}">
+    <input type="hidden" th:field="${editBook.bookId}" />
     <table>
         <tbody>
             <tr>
@@ -17,7 +18,7 @@
                 <td>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" class="form-control" th:field="${addBook.name}" />
+                            <input type="text" class="form-control" th:field="${editBook.name}" />
                         </div>
                     </div>
                 </td>
@@ -27,7 +28,7 @@
                 <td>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" class="form-control" th:field="${addBook.universalIdentificationNumber}" />
+                            <input type="text" class="form-control" th:field="${editBook.universalIdentificationNumber}" />
                         </div>
                     </div>
                 </td>
@@ -44,7 +45,7 @@
                 <td></td>
                 <td>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary" name="action" value="submit">Dodaj!</button>
+                        <button type="submit" class="btn btn-primary" name="action" value="submit">Zapisz zmiany!</button>
                         <button type="submit" class="btn btn-danger float-right" name="action" value="cancel">Anuluj</button>
                     </div>
                 </td>

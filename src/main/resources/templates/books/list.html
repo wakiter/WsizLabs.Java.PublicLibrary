@@ -7,7 +7,7 @@
     <link th:rel="stylesheet" th:href="@{/assets/bootstrap/bootstrap.min.css} "/>
 </head>
 <body>
-<h1>Lista książek <form th:action="@{/addBook}"><button type="submit" class="btn btn-primary">Dodaj książkę</button></form></h1>
+<h1>Lista książek <form th:action="@{/book/add}"><button type="submit" class="btn btn-primary">Dodaj książkę</button></form></h1>
 
 <table class="table table-hover">
     <thead>
@@ -21,8 +21,13 @@
             <td th:text="${book.id}">123</td>
             <td th:text="${book.name}">The Expanse</td>
             <td>
-                <form th:action="@{/rentABook/__${book.id}__}">
+                <form th:action="@{/book/rent/__${book.id}__}">
                     <button type="submit" class="btn btn-primary">Wypożycz</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/book/edit/__${book.id}__}">
+                    <button type="submit" class="btn btn-secondary">Edytuj książkę</button>
                 </form>
             </td>
         </tr>

@@ -1,9 +1,7 @@
-package kozlowski.rafal.publicLibrary.controllers;
+package kozlowski.rafal.publicLibrary.controllers.book;
 
-import kozlowski.rafal.publicLibrary.model.Book;
 import kozlowski.rafal.publicLibrary.repositories.BookRepository;
 import kozlowski.rafal.publicLibrary.repositories.ReaderRepository;
-import kozlowski.rafal.publicLibrary.viewModels.AddBookViewModel;
 import kozlowski.rafal.publicLibrary.viewModels.BorrowBookViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,17 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Controller
-public final class BookController {
+public final class RentController {
 
     private final BookRepository bookRepository;
     private final ReaderRepository readerRepository;
 
-    public BookController(BookRepository bookRepository, ReaderRepository readerRepository) {
+    public static final String RentABookUrl = "/book/rent/";
+    public RentController(BookRepository bookRepository, ReaderRepository readerRepository) {
         this.bookRepository = bookRepository;
         this.readerRepository = readerRepository;
     }
@@ -33,17 +31,7 @@ public final class BookController {
         return new BorrowBookViewModel();
     }
 
-    @ModelAttribute("addBook")
-    public AddBookViewModel addBookViewModel() { return new AddBookViewModel(); }
-
-    @RequestMapping("/books")
-    public String getBooks(Model model) {
-        model.addAttribute("books", bookRepository.findAll());
-
-        return "books/list";
-    }
-
-    @RequestMapping(value = "/rentABook/{bookId}", method = RequestMethod.GET)
+    @RequestMapping(value = RentABookUrl + "{bookId}", method = RequestMethod.GET)
     public String rentABook(
             @PathVariable Long bookId,
             Model model,
@@ -75,7 +63,7 @@ public final class BookController {
         return "books/rent";
     }
 
-    @RequestMapping(value = "/rentABook/{bookId}", method = RequestMethod.POST, params = "action=submit")
+    @RequestMapping(value = RentABookUrl + "{bookId}", method = RequestMethod.POST, params = "action=submit")
     public String rentABook(
             @Valid @ModelAttribute("borrowBook") BorrowBookViewModel viewModel,
             BindingResult bindingResult,
@@ -83,58 +71,23 @@ public final class BookController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", bindingResult);
             redirectAttributes.addFlashAttribute("borrowBook", viewModel);
-            return "redirect:/rentABook/" + viewModel.getBookId();
+            return "redirect:" + RentABookUrl + viewModel.getBookId();
         }
 
         rentABook(viewModel);
 
-        return "redirect:/books";
+        return "redirect:" + ListController.ListBooksUrl;
     }
 
-    @RequestMapping(value = "/rentABook/{bookId}", method = RequestMethod.POST, params = "action=cancel")
+    @RequestMapping(value = RentABookUrl + "{bookId}", method = RequestMethod.POST, params = "action=cancel")
     public String rentABookCancel() {
-        return "redirect:/books";
-    }
-
-    @RequestMapping(value = "/addBook", method = RequestMethod.GET)
-    public String addBook(
-            @ModelAttribute("addBook") AddBookViewModel viewModel,
-            ModelMap modelMap) {
-        modelMap.put(BindingResult.MODEL_KEY_PREFIX + "addBook", modelMap.get("errors"));
-        return "books/add";
-    }
-
-    @RequestMapping(value = "/addBook", method = RequestMethod.POST, params = "action=submit")
-    public String addBook(
-            @Valid @ModelAttribute("addBook") AddBookViewModel viewModel,
-            BindingResult bindingResult,
-            RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errors", bindingResult);
-            redirectAttributes.addFlashAttribute("addBook", viewModel);
-            return "redirect:/addBook";
-        }
-
-        addBook(viewModel);
-
-        return "redirect:/books";
-    }
-
-    @RequestMapping(value = "/addBook", method = RequestMethod.POST, params = "action=cancel")
-    public String addBookCancel() {
-        return "redirect:/books";
+        return "redirect:" + ListController.ListBooksUrl;
     }
 
     private void rentABook(BorrowBookViewModel viewModel) {
         var book = bookRepository.findById(viewModel.getBookId()).get();
         var reader = readerRepository.findById(viewModel.getReaderId()).get();
         book.borrow(reader, viewModel.getBorrowDate());
-
-        bookRepository.save(book);
-    }
-
-    private void addBook(AddBookViewModel viewModel) {
-        var book = new Book(viewModel.getName(), viewModel.getUniversalIdentificationNumber());
 
         bookRepository.save(book);
     }

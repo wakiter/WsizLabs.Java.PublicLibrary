@@ -14,12 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 @Controller
-public final class AddController {
+public final class AddBookController {
     private final BookRepository bookRepository;
     
     public static final String AddBookUrl = "/book/add";
 
-    public AddController(BookRepository bookRepository) {
+    public AddBookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
@@ -50,12 +50,12 @@ public final class AddController {
 
         addBook(viewModel);
 
-        return "redirect:" + ListController.ListBooksUrl;
+        return "redirect:" + ListBookController.ListBooksUrl;
     }
 
     @RequestMapping(value = AddBookUrl, method = RequestMethod.POST, params = "action=cancel")
     public String addBookCancel() {
-        return "redirect:" + ListController.ListBooksUrl;
+        return "redirect:" + ListBookController.ListBooksUrl;
     }
 
     private void addBook(AddBookViewModel viewModel) {

@@ -2,33 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Edycja książki</title>
+    <title>Edycja czytelnika</title>
     <link th:rel="stylesheet" th:href="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css}"/>
     <link th:rel="stylesheet" th:href="@{/assets/bootstrap/bootstrap.min.css} "/>
 </head>
 <body>
-<h1>Edycja książki</h1>
+<h1>Edycja czytelnika</h1>
 
-<form method="post" th:object="${editBook}" th:action="@{__${editBook.submitFormUrl}__}">
-    <input type="hidden" th:field="${editBook.bookId}" />
+<form method="post" th:object="${editReader}" th:action="@{__${editReader.submitFormUrl}__}">
+    <input type="hidden" th:field="${editReader.readerId}" />
     <table>
         <tbody>
             <tr>
-                <td>Nazwa:</td>
+                <td>Imię:</td>
                 <td>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" class="form-control" th:field="${editBook.name}" />
+                            <input type="text" class="form-control" th:field="${editReader.firstname}" />
                         </div>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td>Uniwersalny numer identyfikacyjny:</td>
+                <td>Nazwisko:</td>
                 <td>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" class="form-control" th:field="${editBook.universalIdentificationNumber}" />
+                            <input type="text" class="form-control" th:field="${editReader.lastname}" />
                         </div>
                     </div>
                 </td>

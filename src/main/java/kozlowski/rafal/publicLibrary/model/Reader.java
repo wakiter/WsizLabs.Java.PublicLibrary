@@ -48,6 +48,14 @@ public final class Reader {
         this.id = id;
     }
 
+    public Set<BorrowedBook> getBorrows() {
+        return books;
+    }
+
+    public void setBorrows(Set<BorrowedBook> borrows) {
+        this.books = borrows;
+    }
+
     public Reader addBook(Book book, Date borrowDate) {
         this.books.add(new BorrowedBook(this, book, borrowDate));
 

@@ -13,13 +13,13 @@ import javax.validation.Valid;
 
 
 @Controller
-public final class EditController {
+public final class EditBookController {
 
     private final BookRepository bookRepository;
 
     public static final String EditBookUrl = "/book/edit/";
 
-    public EditController(BookRepository bookRepository) {
+    public EditBookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
@@ -29,11 +29,10 @@ public final class EditController {
     @RequestMapping(value = EditBookUrl + "{bookId}", method = RequestMethod.GET)
     public String editTheBook(
             @PathVariable Long bookId,
-            Model model,
             @ModelAttribute("editBook") EditBookViewModel viewModel,
             ModelMap modelMap) {
         viewModel.setBookId(bookId);
-        viewModel.setSubmitFormUrl(EditBookUrl + viewModel.getBookId().toString());
+        viewModel.setSubmitFormUrl(EditBookUrl + viewModel.getBookId());
 
         var book = bookRepository.findById(bookId).get();
 
@@ -59,12 +58,12 @@ public final class EditController {
 
         editTheBook(viewModel);
 
-        return "redirect:" + ListController.ListBooksUrl;
+        return "redirect:" + ListBookController.ListBooksUrl;
     }
 
     @RequestMapping(value = EditBookUrl + "{bookId}", method = RequestMethod.POST, params = "action=cancel")
     public String editTheBookCancel() {
-        return "redirect:" + ListController.ListBooksUrl;
+        return "redirect:" + ListBookController.ListBooksUrl;
     }
 
     private void editTheBook(EditBookViewModel viewModel) {

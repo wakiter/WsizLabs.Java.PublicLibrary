@@ -10,7 +10,7 @@
 <body>
 <h1>Wypożycz książkę</h1>
 
-<form th:action="@{/book/rent/__${selectedBookId}__}" method="post" th:object="${borrowBook}">
+<form th:action="${borrowBook.submitFormUrl}" method="post" th:object="${borrowBook}">
     <table>
         <tbody>
             <tr>
@@ -32,7 +32,8 @@
                 <td>
                     <div class="form-group">
                         <div class="input-group">
-                            <select id="book" disabled class="form-control" th:field="${borrowBook.bookId}">
+                            <select id="book" th:disabled="${borrowBook.source == T(kozlowski.rafal.publicLibrary.viewModels.BorrowBookViewModel.Source).ByBook}" class="form-control" th:field="${borrowBook.bookId}">
+                                <option value="-1"></option>
                                 <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.name}" th:selected="${book.id == selectedBookId}" />
                             </select>
                         </div>
@@ -44,9 +45,9 @@
                 <td>
                     <div class="form-group">
                         <div class="input-group">
-                            <select id="reader" class="form-control" th:field="${borrowBook.readerId}">
+                            <select id="reader" th:disabled="${borrowBook.source == T(kozlowski.rafal.publicLibrary.viewModels.BorrowBookViewModel.Source).ByReader}" class="form-control" th:field="${borrowBook.readerId}">
                                 <option value="-1"></option>
-                                <option th:each="reader : ${readers}" th:value="${reader.id}" th:text="|${reader.lastname} ${reader.firstname}|" />
+                                <option th:each="reader : ${readers}" th:value="${reader.id}" th:text="|${reader.lastname} ${reader.firstname}|" th:selected="${reader.id == selectedAuthorId}" />
                             </select>
                         </div>
                     </div>

@@ -22,12 +22,12 @@
             <td th:text="${book.id}">123</td>
             <td th:text="${book.name}">The Expanse</td>
             <td>
-                <form th:action="@{/borrow/byBook/__${book.id}__}">
+                <form th:action="${T(kozlowski.rafal.publicLibrary.controllers.borrow.BorrowBookController).BorrowABookByBookUrl + book.id}">
                     <button type="submit" class="btn btn-primary">Wypożycz</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/book/edit/__${book.id}__}">
+                <form th:action="${T(kozlowski.rafal.publicLibrary.controllers.book.EditBookController).EditBookUrl + book.id}">
                     <button type="submit" class="btn btn-secondary">Edytuj książkę</button>
                 </form>
             </td>
@@ -35,7 +35,7 @@
     </tbody>
 </table>
 
-<form th:action="@{/book/add}">
+<form th:action="${T(kozlowski.rafal.publicLibrary.controllers.book.AddBookController).AddBookUrl}">
     <button type="submit" class="btn btn-primary float-right">Dodaj książkę</button>
 </form>
 

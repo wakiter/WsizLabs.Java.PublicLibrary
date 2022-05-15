@@ -23,12 +23,12 @@
             <td th:text="${reader.firstname}">Jasiu</td>
             <td th:text="${reader.lastname}">Kowalski</td>
             <td>
-                <form th:action="@{/borrow/byReader/__${reader.id}__}">
+                <form th:action="${T(kozlowski.rafal.publicLibrary.controllers.borrow.BorrowBookController).BorrowABookByReaderUrl + reader.id}">
                     <button type="submit" class="btn btn-primary">Wypożycz</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/reader/edit/__${reader.id}__}">
+                <form th:action="${T(kozlowski.rafal.publicLibrary.controllers.reader.EditReaderController).EditReaderUrl + reader.id}">
                     <button type="submit" class="btn btn-secondary">Edytuj czytelnika</button>
                 </form>
             </td>
@@ -36,7 +36,7 @@
     </tbody>
 </table>
 
-<form th:action="@{/reader/add}">
+<form th:action="${T(kozlowski.rafal.publicLibrary.controllers.reader.AddReaderController).AddReaderUrl}">
     <button type="submit" class="btn btn-primary float-right">Dodaj czytelnika</button>
 </form>
 

@@ -1,10 +1,10 @@
 package kozlowski.rafal.publicLibrary.viewModels.book;
 
+import kozlowski.rafal.publicLibrary.viewModels.ViewModelBase;
+
 import javax.validation.constraints.Size;
 
-public class BookViewModelBase {
-
-    private String submitFormUrl;
+public abstract class BookViewModelBase extends ViewModelBase {
 
     @Size(min = 1, max = 500, message = "Długość nazwy musi być między 1 a 500 znaków!")
     private String name;
@@ -27,13 +27,4 @@ public class BookViewModelBase {
     public void setUniversalIdentificationNumber(String universalIdentificationNumber) {
         this.universalIdentificationNumber = universalIdentificationNumber;
     }
-
-    public String getSubmitFormUrl() {
-        return submitFormUrl;
-    }
-
-    public void setSubmitFormUrl(String submitFormUrl) {
-        this.submitFormUrl = submitFormUrl;
-    }
-
 }

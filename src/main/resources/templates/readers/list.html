@@ -2,41 +2,42 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Książki</title>
+    <title>Czytelnicy</title>
     <link th:rel="stylesheet" th:href="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css}"/>
     <link th:rel="stylesheet" th:href="@{/assets/bootstrap/bootstrap.min.css} "/>
 </head>
 <body>
-<h1>Lista książek</h1>
+<h1>Lista czytelników</h1>
 
 <table class="table table-hover">
     <thead>
         <th>Id</th>
-        <th>Nazwa</th>
-        <th />
+        <th>Imię</th>
+        <th>Naziwsko</th>
         <th />
     </thead>
 
     <tbody>
-        <tr th:each="book : ${books}">
-            <td th:text="${book.id}">123</td>
-            <td th:text="${book.name}">The Expanse</td>
+        <tr th:each="reader : ${readers}">
+            <td th:text="${reader.id}">123</td>
+            <td th:text="${reader.firstname}">Jasiu</td>
+            <td th:text="${reader.lastname}">Kowalski</td>
             <td>
-                <form th:action="@{/borrow/byBook/__${book.id}__}">
+                <form th:action="@{/borrow/byReader/__${reader.id}__}">
                     <button type="submit" class="btn btn-primary">Wypożycz</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/book/edit/__${book.id}__}">
-                    <button type="submit" class="btn btn-secondary">Edytuj książkę</button>
+                <form th:action="@{/reader/edit/__${reader.id}__}">
+                    <button type="submit" class="btn btn-secondary">Edytuj czytelnika</button>
                 </form>
             </td>
         </tr>
     </tbody>
 </table>
 
-<form th:action="@{/book/add}">
-    <button type="submit" class="btn btn-primary float-right">Dodaj książkę</button>
+<form th:action="@{/reader/add}">
+    <button type="submit" class="btn btn-primary float-right">Dodaj czytelnika</button>
 </form>
 
 </body>

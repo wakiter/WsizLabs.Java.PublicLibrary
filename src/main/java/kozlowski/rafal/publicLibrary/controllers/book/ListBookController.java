@@ -6,12 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public final class ListController {
+public final class ListBookController {
     private final BookRepository bookRepository;
     
     public static final String ListBooksUrl = "/book/list";
     
-    public ListController(BookRepository bookRepository) {
+    public ListBookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 

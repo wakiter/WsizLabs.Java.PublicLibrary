@@ -9,13 +9,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
-public final class BorrowBookViewModel {
+public final class BorrowBookViewModel extends ViewModelBase {
+    private Source source;
+
     @Min(value = 1, message = "Książka musi być wybrana!")
     private Long bookId;
     @Min(value = 1, message = "Czytelnik musi być wybrany!")
     private Long readerId;
 
-    @NotNull(message = "Data wypożycenia musi być podana!")
+    @NotNull(message = "Data wypożyczenia musi być podana!")
     @Past
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     private Date borrowDate;
@@ -42,5 +44,14 @@ public final class BorrowBookViewModel {
 
     public void setBorrowDate(Date borrowDate) {
         this.borrowDate = borrowDate;
+    }
+
+    public Source getSource() { return source; }
+
+    public void setSource(Source source) { this.source = source; }
+
+    public enum Source {
+        ByBook,
+        ByReader
     }
 }

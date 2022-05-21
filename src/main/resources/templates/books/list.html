@@ -15,6 +15,7 @@
         <th>Nazwa</th>
         <th />
         <th />
+        <th />
     </thead>
 
     <tbody>
@@ -59,7 +60,6 @@
             const bookName = button.data('book-name');
             const modal = jQuery(this);
             modal.find('.modal-body').html(bookName);
-            modal.find('#bookId').val(bookId);
 
             modal.find('.btn-primary').on('click', function(e) {
                 e.preventDefault();

@@ -15,6 +15,7 @@
         <th>Imię</th>
         <th>Naziwsko</th>
         <th />
+        <th />
     </thead>
 
     <tbody>
@@ -32,6 +33,10 @@
                     <button type="submit" class="btn btn-secondary">Edytuj czytelnika</button>
                 </form>
             </td>
+            <td>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteReaderModal" th:attr="data-reader-firstname=${reader.firstname},data-reader-lastname=${reader.lastname},data-reader-id=${reader.id}">Usuń czytelnika</button>
+                <div th:insert="readers/modalDeleteReader" />
+            </td>
         </tr>
     </tbody>
 </table>
@@ -45,5 +50,32 @@
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/assets/bootstrap/bootstrap.min.js}"></script>
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    jQuery(document).ready(function() {
+        jQuery(document).on('show.bs.modal', '#deleteReaderModal', function (event) {
+            const button = jQuery(event.relatedTarget);
+            const readerId = button.data('reader-id');
+            const readerFirstname = button.data('reader-firstname');
+            const readerLastname = button.data('reader-lastname');
+            const modal = jQuery(this);
+            modal.find('.modal-body').html(readerFirstname + ' ' + readerLastname);
+
+            modal.find('.btn-primary').on('click', function(e) {
+                e.preventDefault();
+                const url = /*[[${T(kozlowski.rafal.publicLibrary.controllers.reader.DeleteReaderController).DeleteReaderModalWindowUrl}]]*/;
+                jQuery.post(url, { readerId: readerId }, function(d) {
+                    modal.modal('hide');
+                    window.location.reload();
+                });
+            });
+        });
+    });
+
+    /*]]>*/
+</script>
 
 </html>

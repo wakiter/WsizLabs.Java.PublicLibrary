@@ -15,6 +15,7 @@
         <th>Nazwa</th>
         <th />
         <th />
+        <th />
     </thead>
 
     <tbody>
@@ -31,6 +32,10 @@
                     <button type="submit" class="btn btn-secondary">Edytuj książkę</button>
                 </form>
             </td>
+            <td>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteBookModal" th:attr="data-book-name=${book.name},data-book-id=${book.id}">Usuń książkę</button>
+                <div th:insert="books/modalDeleteBook" />
+            </td>
         </tr>
     </tbody>
 </table>
@@ -44,5 +49,30 @@
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/assets/bootstrap/bootstrap.min.js}"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    jQuery(document).ready(function() {
+        jQuery(document).on('show.bs.modal', '#deleteBookModal', function (event) {
+            const button = jQuery(event.relatedTarget);
+            const bookId = button.data('book-id');
+            const bookName = button.data('book-name');
+            const modal = jQuery(this);
+            modal.find('.modal-body').html(bookName);
+
+            modal.find('.btn-primary').on('click', function(e) {
+                e.preventDefault();
+                const url = /*[[${T(kozlowski.rafal.publicLibrary.controllers.book.DeleteBookController).DeleteBookModalWindowUrl}]]*/;
+                jQuery.post(url, { bookId: bookId }, function(d) {
+                    modal.modal('hide');
+                    window.location.reload();
+                });
+            });
+        });
+    });
+
+    /*]]>*/
+</script>
 
 </html>

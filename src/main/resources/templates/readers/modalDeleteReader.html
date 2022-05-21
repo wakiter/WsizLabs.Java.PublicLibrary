@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Potwierdź usunięcie czytelnika</title>
+</head>
+<body>
+
+<div class="modal fade" th:id="deleteReaderModal" tabindex="-1" role="dialog" aria-labelledby="deleteReaderLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteReaderLabel">Jesteś pewny że chcesz usunąć tego czytelnika?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ${deleteReader.firstname} ${deleteReader.lastname}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Tak, usuwam!</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

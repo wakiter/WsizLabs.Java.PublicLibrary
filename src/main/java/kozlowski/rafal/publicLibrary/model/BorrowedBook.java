@@ -21,12 +21,16 @@ public final class BorrowedBook {
 
     @Basic
     @Temporal(TemporalType.TIMESTAMP)
-    private Date borrowTimestamp;
+    private Date returnTimestamp;
 
-    public BorrowedBook(Reader reader, Book book, Date borrowTimestamp) {
+    public BorrowedBook(Reader reader, Book book, Date borrowTimestamp, Date returnTimestamp) {
         this.reader = reader;
         this.book = book;
-        this.borrowTimestamp = borrowTimestamp;
+        this.returnTimestamp = returnTimestamp;
+
+        this.id.setBookId(this.book.getId());
+        this.id.setReaderId(this.reader.getId());
+        this.id.setBorrowTimestamp(borrowTimestamp);
     }
 
     public BorrowedBook() {
@@ -56,7 +60,11 @@ public final class BorrowedBook {
         this.id = id;
     }
 
-    public Date getBorrowTimestamp() { return borrowTimestamp; }
+    public Date getReturnTimestamp() {
+        return returnTimestamp;
+    }
 
-    public void setBorrowTimestamp(Date borrowTimestamp) { this.borrowTimestamp = borrowTimestamp; }
+    public void setReturnTimestamp(Date returnTimestamp) {
+        this.returnTimestamp = returnTimestamp;
+    }
 }

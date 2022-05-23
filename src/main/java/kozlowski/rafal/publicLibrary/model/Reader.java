@@ -57,7 +57,7 @@ public final class Reader {
     }
 
     public Reader addBook(Book book, Date borrowDate) {
-        this.books.add(new BorrowedBook(this, book, borrowDate));
+        this.books.add(new BorrowedBook(this, book, borrowDate, null));
 
         return this;
     }

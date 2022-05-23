@@ -26,6 +26,8 @@ public final class BorrowBookController {
     public static final String BorrowABookByBookUrl = BorrowABookUrl + "byBook/";
 
     public static final String BorrowABookByReaderUrl = BorrowABookUrl + "byReader/";
+
+    public static final String ReturnTheBook = BorrowABookUrl + "return/";
     
     public BorrowBookController(BookRepository bookRepository, ReaderRepository readerRepository) {
         this.bookRepository = bookRepository;
@@ -49,14 +51,20 @@ public final class BorrowBookController {
 
         var allReaders = readerRepository.findAll();
         var allBooks = bookRepository.findAll();
-        var chosenBookReaderIds = StreamSupport.stream(allBooks.spliterator(), false)
+
+        var borrowedBooksNotReturned = StreamSupport.stream(allBooks.spliterator(), false)
                 .filter(b -> b.getId() == bookId)
                 .findFirst()
                 .get()
                 .getBorrows()
                 .stream()
-                .map(br -> br.getReader().getId())
-                .collect(Collectors.toList());
+                .filter(bb -> bb.getReturnTimestamp() == null)
+                .collect(Collectors.toUnmodifiableSet());
+
+        var chosenBookReaderIds = borrowedBooksNotReturned
+                .stream()
+                .map(bb -> bb.getReader().getId())
+                .collect(Collectors.toUnmodifiableSet());
 
         var readersToDisplay = StreamSupport.stream(allReaders.spliterator(), false)
                         .filter(r -> !chosenBookReaderIds.contains(r.getId()))
@@ -111,6 +119,7 @@ public final class BorrowBookController {
                 .get()
                 .getBorrows()
                 .stream()
+                .filter(br -> br.getReturnTimestamp() == null)
                 .map(br -> br.getBook().getId())
                 .collect(Collectors.toList());
 

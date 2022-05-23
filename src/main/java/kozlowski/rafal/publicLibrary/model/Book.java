@@ -60,7 +60,7 @@ public final class Book {
     }
 
     public Book borrow(Reader reader, Date borrowDate) {
-        this.borrows.add(new BorrowedBook(reader, this, borrowDate));
+        this.borrows.add(new BorrowedBook(reader, this, borrowDate, null));
 
         return this;
     }

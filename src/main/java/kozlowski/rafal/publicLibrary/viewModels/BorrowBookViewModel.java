@@ -19,7 +19,7 @@ public final class BorrowBookViewModel extends ViewModelBase {
 
     @NotNull(message = "Data wypożyczenia musi być podana!")
     @Past
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Date borrowDate;
 
     public Long getBookId() {

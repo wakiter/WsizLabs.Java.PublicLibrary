@@ -16,6 +16,7 @@
         <th>Naziwsko</th>
         <th />
         <th />
+        <th />
     </thead>
 
     <tbody>
@@ -24,8 +25,11 @@
             <td th:text="${reader.firstname}">Jasiu</td>
             <td th:text="${reader.lastname}">Kowalski</td>
             <td>
-                <form th:action="${T(kozlowski.rafal.publicLibrary.controllers.borrow.BorrowBookController).BorrowABookByReaderUrl + reader.id}">
-                    <button type="submit" class="btn btn-primary">Wypożycz</button>
+                <form class="float-left" th:action="${T(kozlowski.rafal.publicLibrary.controllers.borrow.BorrowBookController).BorrowABookByReaderUrl + reader.id}">
+                    <button type="submit" class="btn btn-primary">Wypożycz książkę</button>
+                </form>
+                <form class="float-left ml-3" th:action="${T(kozlowski.rafal.publicLibrary.controllers.reader.BorrowedBooksController).ListBorrowedBooks + reader.id}">
+                    <button type="submit" class="btn btn-info">Wypożyczone książki</button>
                 </form>
             </td>
             <td>

@@ -5,9 +5,52 @@
     <title>Czytelnicy</title>
     <link th:rel="stylesheet" th:href="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css}"/>
     <link th:rel="stylesheet" th:href="@{/assets/bootstrap/bootstrap.min.css} "/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/assets/bootstrap/bootstrap.min.js}"></script>
 </head>
 <body>
 <h1>Lista czytelników</h1>
+
+<div>
+    <form method="get" id="formSearch">
+        <div class="container">
+            <div class="row form-group">
+                <div class="col-sm">Szukaj:</div>
+                <div class="col-sm input-group"><input type="text" th:field="${search.searchText}" id="searchText"></div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm">Pole:</div>
+                <div class="col-sm input-group">
+                    <select id="fields" th:field="${search.searchField}">
+                        <option th:each="field : ${search.allFields}" th:value="${field.value}" th:text="${field.text}" th:selected="${search.searchField.equals(field.value)}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm">Pole:</div>
+                <div class="col-sm input-group float-right">
+                    <button type="submit" class="btn btn-primary">Szukaj</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+
+    jQuery(document).ready(function() {
+        jQuery(document).on('submit', '#formSearch', function (event) {
+            const url = /*[[${T(kozlowski.rafal.publicLibrary.controllers.reader.ListReaderController).ListReadersUrl}]]*/;
+            jQuery('#formSearch').attr('action', url);
+        });
+    });
+
+    /*]]>*/
+</script>
+</div>
 
 <table class="table table-hover">
     <thead>
@@ -50,11 +93,6 @@
 </form>
 
 </body>
-
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/assets/bootstrap/bootstrap.min.js}"></script>
-
 
 <script th:inline="javascript">
     /*<![CDATA[*/

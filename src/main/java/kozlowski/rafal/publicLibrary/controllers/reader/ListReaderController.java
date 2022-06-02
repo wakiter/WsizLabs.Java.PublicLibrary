@@ -4,9 +4,8 @@ import kozlowski.rafal.publicLibrary.repositories.ReaderRepository;
 import kozlowski.rafal.publicLibrary.viewModels.reader.SearchReaderViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Arrays;
@@ -30,8 +29,8 @@ public final class ListReaderController {
         var searchModel = new SearchReaderViewModel();
         model.addAttribute("search", searchModel);
 
-        searchModel.setSearchText(searchText);
-        searchModel.setSearchField(searchField);
+        searchModel.setSearchText(searchText == null ? "" : searchText);
+        searchModel.setSearchField(searchField == null ? "" : searchField);
 
         if (StringUtils.isEmptyOrWhitespace(searchText)
                 || StringUtils.isEmptyOrWhitespace(searchField)

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblioteka publiczna</title>
+    <link th:rel="stylesheet" th:href="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{/assets/bootstrap/bootstrap.min.css} "/>
+</head>
+<body>
+<h1>Biblioteka publiczna</h1>
+
+<div class="container">
+    <div class="form-group">
+        <form th:action="${T(kozlowski.rafal.publicLibrary.controllers.book.ListBookController).ListBooksUrl}" method="get">
+            <button type="submit" style="btn btn-primary" hre>Lista książek</button>
+        </form>
+    </div>
+    <div class="form-group">
+        <form th:action="${T(kozlowski.rafal.publicLibrary.controllers.reader.ListReaderController).ListReadersUrl}" method="get">
+            <button type="submit" style="btn btn-secondary">Lista czytelników</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
